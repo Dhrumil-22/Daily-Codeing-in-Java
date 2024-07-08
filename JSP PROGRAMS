@@ -31,3 +31,352 @@ for(int i=0;i<5;i++){
 </body>
 </html>
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2. Make 2 JSP file, In 1st file make "Form" and get all the information of User and print it on next page after user click on submit button also make reset button to reset the form ....
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------
+|	  information.jsp          |
+------------------------------------
+
+// in this file, we make a "FORM" where user enter all the information.. 
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+
+<style>
+h3{
+text-align:center;
+text-decoration: underline;
+}
+
+table, th, td {
+  border:1px solid black;
+  font-size: 10px;
+  margin:auto;
+  font-weight: bold;
+}
+
+input,textarea,select{
+outline:none;
+border:1px solid white;
+font-size: 10px;
+font-weight: bold;
+}
+
+select,option{
+font-size: 10px;
+}    
+</style>
+<body>
+<h3>REGISTRATION FORM</h3>
+<form action="2.jsp" method="post"><br>
+<table style="width :30%";>
+
+  <tr>
+  	<td style=" text-align:center;">NAME :</td>
+  	<td><input type="text" name="Name"  ><br><br></td> 
+  </tr>
+  
+  <tr>
+  	<td style=" text-align:center;">SURNAME :</td>
+  	<td><input type="text" name="Sname" ><br><br></td>
+  </tr>
+  
+  <tr>
+  	<td style=" text-align:center;">EMAIL :</td>
+  	<td><input type="text" name="Email" ><br><br></td>
+  </tr>
+  
+  <tr>
+  	<td style=" text-align:center;">COUNTRY :</td>
+  	<td><select name="Country" >
+        	<option value="India" >India</option>
+        	<option value="USA" >USA</option>
+        	<option value="China" >China</option>
+    	</select><br><br>
+    </td>
+  </tr>
+  
+  <tr>
+  	<td style=" text-align:center;">GENDER :</td>
+  	<td><input type="radio" name="Gender" value="Male">Male
+		<input type="radio" name="Gender" value="Female">Female<br><br>
+	</td>
+  </tr>
+  
+  <tr>
+  	<td style=" text-align:center;">HOBBIES :</td>
+  	<td><input type="checkbox" name="Hobby" value="Java">Java<br>
+		<input type="checkbox" name="Hobby" value="Python" padding="10px">Python<br>
+		<input type="checkbox" name="Hobby" value="C++">C++<br><br>
+	</td>
+  </tr>
+  
+  <tr>
+  	<td style=" text-align:center;">ADDRESS :</td>
+  	<td><textarea name="Address" rows="6" cols="25" ></textarea><br><br></td>
+  </tr>
+  
+</table>
+
+<div style=padding-left:450px;padding-top:10px;">
+	<input type="submit" style="border:1px solid black;">
+	<input type="reset" style="border:1px solid black;">
+</div>
+</form> 
+</body>
+</html>
+
+
+-----------------------------------
+|	  Print_Info.jsp          |
+-----------------------------------
+
+
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<%
+// this funcion,"request.getParameter("Name")" fetches the value entered in the "Name" input field.
+String s1 = request.getParameter("Name");
+String s2 = request.getParameter("Sname");
+String s3 = request.getParameter("Email");
+String s4 = request.getParameter("Country");
+String s5 = request.getParameter("Gender");
+String[] hobbies = request.getParameterValues("Hobby");
+String s6 = request.getParameter("Address");
+
+out.println("<b>"+"Name: "+"</b>" + s1 + "<br>");
+out.println("<b>"+"Surname: "+"</b>"  + s2 + "<br>");
+out.println("<b>"+"Email: " +"</b>" + s3 + "<br>");
+out.println("<b>"+"Country: " +"</b>" + s4 + "<br>");
+out.println("<b>"+"Gender: " +"</b>" + s5 + "<br>");
+out.println("<b>"+"Hobbies: "+"</b>" );
+if (hobbies != null) {
+    for (String hobby : hobbies) {
+        out.println(hobby + " ,");
+    }
+}
+out.println("<br>");
+out.println("<b>"+"Address: " +"</b>" + s6 + "<br>");
+%>
+</body>
+</html>
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+3. Write a code where only "Authorize User" can access the next page."Unauthorize User" can't access the next page....
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// So,for this task we have to 3 jsp file where in one jsp file user have to enter "USER-NAME" and "PASSWORD". if it is correct then only user go to next page else user is Unauthorize..
+
+
+------------------------------
+|	  login.jsp          |
+------------------------------
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here
+</title>
+</head>
+
+<style>
+h3{
+text-align:center;
+text-decoration: underline;
+}
+
+table, th, td {
+  border:1px solid black;
+  font-size: 10px;
+  margin:auto;
+  font-weight: bold;
+}
+
+input,textarea,select{
+outline:none;
+border:1px solid white;
+font-size: 10px;
+font-weight: bold;
+}
+
+select,option{
+font-size: 10px;
+}    
+</style>
+
+<body>
+<h3>Login Form</h3>
+<form action="Verify.jsp" method="post"><br>
+<table style="width :30%">
+
+  <tr>
+  	<td style=" text-align:center;">USER NAME :</td>
+  	<td><input type="text" name="Userid"  ><br><br></td> 
+  </tr>
+  
+  <tr>
+  	<td style=" text-align:center;">PASSWORD :</td>
+  	<td><input type="Password" name="Pass" ><br><br></td>
+  </tr>
+ </table>
+ 
+ <div style=padding-left:450px;padding-top:10px;>
+	<input type="submit" Value="Login" style="border:1px solid black;"></div>
+ 
+</form>
+
+</body>
+</html>
+
+// this code is for login. in this, user have to enter User-Name and Password then they have to click on the submit button....
+
+
+-------------------------------
+|	  verify.jsp          |
+-------------------------------
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<%
+
+String s1 = request.getParameter("Userid");
+String s2 = request.getParameter("Pass");
+
+if("admin".equals(s1) && "admin".equals(s2)){
+	response.sendRedirect("Welcome.jsp?Userid=" + s1 +"&Pass="+s2);
+}else{
+	response.sendRedirect("login.jsp");
+	
+}
+%>
+
+</body>
+</html>
+
+// this code verify the user is Authorize or Not (By checking user enter the User-Name and Password "admin")..if user is Authorize then it go to next "Welcome.jsp" page..
+
+
+
+--------------------------------
+|	  welcome.jsp          |
+--------------------------------
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<h2>Your Welcome ....</h2>
+<% 
+String s1 = request.getParameter("Userid");
+String s2 = request.getParameter("Pass");
+
+out.println("<b>"+ "User Name : "+"</b>"+ s1 + "<br>");
+out.println("<b>"+"Password : "+"</b>"+ s2 + "<br>");
+
+
+%>
+
+</body>
+</html>
+
+// this code just print the "Your Welcome ...." , "User-name" and "Password"..
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+4. Use diffrent function like ,"request.setAttribute(arg0,arg1);","session.setAttribute(arg0,arg1);" and "application.setAttribute(arg0,arg1);"...
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------
+|	  1.jsp          |
+--------------------------
+
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<%
+request.setAttribute("a", "Hello");
+session.setAttribute("b", 123);
+session.setAttribute("c", "world");
+application.setAttribute("d", 120.258);
+
+String s = (String)request.getAttribute("a"); // this function is only support the value for only one page
+int i = (Integer)session.getAttribute("b");
+String s1 = (String)session.getAttribute("c");
+double d = (Double)application.getAttribute("d");
+
+out.println(s +"<br>"); // OUTPUT : Hello
+out.println(i +"<br>"); // OUTPUT : 123
+out.println(s1 +"<br>"); // OUTPUT : world
+out.println(d +"<br>"); // OUTPUT : 120.258
+
+// session.removeAttribute("b");
+// this fuction remove the specific attribute ..
+
+%>
+
+<a href="6-2.jsp">go to 2nd page </a>
+</body>
+</html>
+
+
+
+--------------------------
+|	  2.jsp          |
+--------------------------
+
+
+
+
+
+--------------------------
+|	  3.jsp          |
+--------------------------
+
+
+
+
+
+
+
+
